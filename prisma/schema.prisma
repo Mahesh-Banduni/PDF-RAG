@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  userId      String        @id @default(uuid())
+  clerkId     String        @unique
+  email       String        @unique
+  firstName   String?
+  lastName    String?
+  avatarUrl   String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  // Relations
+  chatChannels ChatChannel[]
+}
+
+model Pdf {
+  pdfId          String       @id @default(uuid())
+  chatChannelId  String
+  vectorIds      String[]
+  fileURL        String
+  title          String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  // Relations
+  chatChannel    ChatChannel  @relation(fields: [chatChannelId], references: [chatChannelId], onDelete: Cascade)
+  message       Message?    @relation("PdfAttachment")
+}
+
+model ChatChannel {
+  chatChannelId  String      @id @default(uuid())
+  userId         String
+  title          String
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  // Relations
+  user           User        @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  messages       Message[]
+  pdfs           Pdf[]
+}
+
+model Message {
+  messageId         String       @id @default(uuid())
+  chatChannelId     String
+  role              String
+  content           String
+  createdAt         DateTime     @default(now())
+  attachedPdfId     String?      @unique
+  replyToMessageId  String?
+
+  // Relations
+  chatChannel       ChatChannel  @relation(fields: [chatChannelId], references: [chatChannelId], onDelete: Cascade)
+  attachedPdf       Pdf?         @relation("PdfAttachment", fields: [attachedPdfId], references: [pdfId], onDelete: Cascade)
+  replyToMessage    Message?     @relation("MessageReplies", fields: [replyToMessageId], references: [messageId])
+  replies           Message[]    @relation("MessageReplies")
+}
