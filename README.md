@@ -1,6 +1,6 @@
 # AI-Powered PDF RAG System
 
-A production-ready **AI-powered Retrieval-Augmented Generation (RAG) platform** built with **Next.js** and **TailwindCSS**, enabling users to upload PDFs, semantically search content, and engage in contextual AI chat experiences powered by vector search.
+**AI-powered Retrieval-Augmented Generation (RAG) platform** is built with **Next.js** and **TailwindCSS**, enabling users to upload PDFs, semantically search content, and engage in contextual AI chat experiences powered by vector search.
 
 ## Features
 
