@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# AI-Powered PDF RAG System
 
-## Getting Started
+A production-ready **AI-powered Retrieval-Augmented Generation (RAG) platform** built with **Next.js** and **TailwindCSS**, enabling users to upload PDFs, semantically search content, and engage in contextual AI chat experiences powered by vector search.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Authentication & User Management
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* Seamless authentication and user management with **Clerk**.
+* Webhooks auto-sync user data — create, update, and delete user records in the database based on Clerk events.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### RAG Pipeline & Vector Search
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* Full RAG workflow using **LangChain** for:
 
-## Learn More
+  * PDF text extraction
+  * Splitting & chunking
+  * Embedding generation using **Gemini Embedding Model**
+* **Pinecone Vector DB** integration for scalable semantic search & retrieval.
+* Vector isolation using user-based namespaces to ensure data privacy, optimized search performance, and scoped retrieval.
 
-To learn more about Next.js, take a look at the following resources:
+### PDF Upload & Management
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* Authenticated users can upload PDFs and manage their document library.
+* View, download, and remove previously uploaded PDFs.
+* PDFs are associated with individual users for secure, isolated access.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### AI Chat with Context Awareness
 
-## Deploy on Vercel
+* Streaming AI chat powered by **Google Generative AI SDK** for real-time responses.
+* Short-term conversational memory allows for contextual awareness within each chat session.
+* Enhanced chat UI features:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  * Message editing
+  * Response regeneration
+  * Copy-to-clipboard
+  * Clear chat history
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Multi‑Channel Chat Architecture
+
+* Multi‑channel chat system enabling separate conversations with isolated context.
+* Full CRUD for chat channels:
+
+  * Create, rename, and delete channels
+  * Remove all associated context and PDF data upon channel deletion
+* Channel‑level PDF context:
+
+  * PDFs are isolated per channel
+  * Each channel supports its own PDF uploads, retrieval context, and chat history
+
+### Chat‑Message Attached PDFs
+
+* PDFs uploaded through chat are visually attached to messages.
+* Users can view or download attached files from the chat interface.
+
+## 🛠️ Tech Stack
+
+| Category     | Technology                                  |
+| ------------ | ------------------------------------------- |
+| Frontend     | Next.js, TailwindCSS                        |
+| Auth         | Clerk                                       |
+| AI / LLM     | Google Generative AI (Gemini)               |
+| RAG Pipeline | LangChain                                   |
+| Vector DB    | Pinecone                                    |
+| Storage      | BackBlaze                                   |
+
